@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         binding.falseButton.setOnClickListener { view: View -> }
 
         val questionTextResId = questionBank[currentIndex].textResId
-        binding.quest .
-        giionTextView.setText(questionTextResId)
+        binding.questionTextView.setText(questionTextResId)
     }
 }
