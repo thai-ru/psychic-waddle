@@ -3,6 +3,7 @@ package robinthairu.me.geoquiz
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -38,11 +39,50 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.trueButton.setOnClickListener { view: View -> }
+        binding.trueButton.setOnClickListener { view: View ->
+            checkAnswer(true)
+        }
 
-        binding.falseButton.setOnClickListener { view: View -> }
+        binding.falseButton.setOnClickListener { view: View ->
+            checkAnswer(false)
+        }
 
+        binding.questionTextView.setOnClickListener {
+            currentIndex = (currentIndex +1) % questionBank.size
+            updateQuestion()
+        }
+
+        binding.nextButton.setOnClickListener {
+            currentIndex = (currentIndex +1) % questionBank.size
+            updateQuestion()
+        }
+
+        binding.previousButton.setOnClickListener {
+            currentIndex = (currentIndex - 1 + questionBank.size) % questionBank.size
+            updateQuestion()
+        }
+
+        updateQuestion()
+    }
+
+    private fun updateQuestion() {
         val questionTextResId = questionBank[currentIndex].textResId
         binding.questionTextView.setText(questionTextResId)
+    }
+
+    private fun checkAnswer(userAnswer: Boolean) {
+        val correctAnswer = questionBank[currentIndex].answer
+
+        val messageResId = if (userAnswer == correctAnswer) {
+            R.string.correct_toast
+        } else {
+            R.string.incorrect_toast
+        }
+
+        Toast.makeText(
+            this,
+            messageResId,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

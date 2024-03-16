@@ -6,6 +6,7 @@
     <string name="incorrect_toast">Incorrect!! 😢</string>
     <string name="snackBar_dismiss">Dismiss</string>
     <string name="next_question">Next</string>
+    <string name="previous_question">Previous</string>
 
     <!--    Questions-->
 
