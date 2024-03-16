@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
+import robinthairu.me.geoquiz.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var trueButton: Button
-    private lateinit var falseButton: Button
+    private lateinit var binding: ActivityMainBinding
 
-    private val QuestionBank = listOf(
+    private val questionBank = listOf(
         Question(R.string.question_africa, false),
         Question(R.string.question_americas, true),
         Question(R.string.question_asia,true),
@@ -29,39 +29,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        trueButton = findViewById(R.id.true_button)
-        falseButton = findViewById(R.id.false_button)
+        binding.trueButton.setOnClickListener { view: View -> }
 
-        trueButton.setOnClickListener { view: View ->
-            val snackBar = Snackbar.make(
-                view ,
-                R.string.correct_toast,
-                Snackbar.LENGTH_SHORT
-            )
-            snackBar.setAction(R.string.snackBar_dismiss)  {
-                snackBar.dismiss()
-            }
+        binding.falseButton.setOnClickListener { view: View -> }
 
-            snackBar.show()
-        }
-
-        falseButton.setOnClickListener { view: View ->
-            val snackBar = Snackbar.make(
-                view,
-                R.string.incorrect_toast,
-                Snackbar.LENGTH_SHORT
-            )
-            snackBar.setAction(R.string.snackBar_dismiss){
-                snackBar.dismiss()
-            }
-            snackBar.show()
-        }
+        val questionTextResId = questionBank[currentIndex].textResId
+        binding.quest .
+        giionTextView.setText(questionTextResId)
     }
 }
