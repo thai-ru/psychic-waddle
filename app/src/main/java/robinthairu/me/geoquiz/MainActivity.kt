@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -20,6 +21,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import robinthairu.me.geoquiz.databinding.ActivityMainBinding
+import androidx.lifecycle.ViewModel
 
 
 private const val TAG = "MainActivity"
@@ -27,18 +29,9 @@ private const val CHANNEL_ID = "QuizNotification"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val quizViewModel: QuizViewModel by viewModels()
 
-    private val questionBank = listOf(
-        Question(R.string.question_africa, false),
-        Question(R.string.question_americas, true),
-        Question(R.string.question_asia,true),
-        Question(R.string.question_australia, true),
-        Question(R.string.question_mideast, false),
-        Question(R.string.question_oceans, true),
-        Question(R.string.question_nairobi, false))
-
-    private var currentIndex = 0
-    private var questionAnswered = BooleanArray(questionBank.size)
+//    private var questionAnswered = BooleanArray(questionBank.size)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d(TAG, "Got a quiz view model: $quizViewModel")
 
         createNotificationChannel()
 
@@ -74,17 +68,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.questionTextView.setOnClickListener {
-            currentIndex = (currentIndex +1) % questionBank.size
+            quizViewModel.moveToNext()
             updateQuestion()
         }
 
         binding.nextButton.setOnClickListener {
-            currentIndex = (currentIndex +1) % questionBank.size
+            quizViewModel.moveToNext()
             updateQuestion()
         }
 
         binding.previousButton.setOnClickListener {
-            currentIndex = (currentIndex - 1 + questionBank.size) % questionBank.size
+            quizViewModel.moveToPrevious()
             updateQuestion()
         }
 
@@ -92,12 +86,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateQuestion() {
-        val questionTextResId = questionBank[currentIndex].textResId
+        val questionTextResId = quizViewModel.currentQuestionText
         binding.questionTextView.setText(questionTextResId)
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
-        val correctAnswer = questionBank[currentIndex].answer
+        val correctAnswer = quizViewModel.currentQuestionAnswer
 
 
         val messageResId = if (userAnswer == correctAnswer) {
