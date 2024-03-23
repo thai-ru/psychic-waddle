@@ -82,6 +82,10 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
 
+        binding.cheatButton.setOnClickListener {
+//            Launch new activity
+        }
+
         updateQuestion()
     }
 
