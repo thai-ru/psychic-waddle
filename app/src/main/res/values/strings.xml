@@ -8,6 +8,12 @@
     <string name="next_question">Next</string>
     <string name="previous_question">Previous</string>
 
+    <!--    Activity two - Cheat Activity-->
+    <string name="warning_text">Are you sure you want to do this?</string>
+    <string name="show_answer_button">Show answer</string>
+    <string name="cheat_button">Cheat!</string>
+    <string name="judgement_toast">Cheating is wrong!👎🏾.</string>
+
     <!--    Questions-->
 
     <string name="question_nairobi">Nairobi is the Capital of Djibouti ?</string>
