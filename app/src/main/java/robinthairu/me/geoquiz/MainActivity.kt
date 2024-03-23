@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -84,6 +85,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.cheatButton.setOnClickListener {
 //            Launch new activity
+            val intent = Intent(this, CheatActivity::class.java)
+            startActivity(intent)
         }
 
         updateQuestion()
