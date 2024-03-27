@@ -1,5 +1,6 @@
 package robinthairu.me.geoquiz
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +13,7 @@ import robinthairu.me.geoquiz.databinding.ActivityCheatBinding
 
 
 private const val EXTRA_ANSWER_IS_TRUE = "robinthairu.me.geoquiz.answer_is_true"
+private  const val EXTRA_ANSWER_SHOWN  = "robinthairu.me.geoquiz.answer_shown"
 private var answerIsTrue = false
 
 
@@ -31,6 +33,7 @@ class CheatActivity : AppCompatActivity() {
                 else -> R.string.false_button
             }
             binding.answerTextView.setText(answerText)
+            setAnswerShownResult(true)
         }
 
         enableEdgeToEdge()
@@ -51,4 +54,11 @@ class CheatActivity : AppCompatActivity() {
         }
 
         }
+
+    private fun setAnswerShownResult(isAnswerShown: Boolean) {
+        val data = Intent().apply {
+            putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown)
+        }
+        setResult(Activity.RESULT_OK, data)
+    }
 }
