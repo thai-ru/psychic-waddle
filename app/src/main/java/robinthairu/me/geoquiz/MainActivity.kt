@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModel
 
 private const val TAG = "MainActivity"
 private const val CHANNEL_ID = "QuizNotification"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -85,7 +86,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.cheatButton.setOnClickListener {
 //            Launch new activity
-            val intent = Intent(this, CheatActivity::class.java)
+            val answerIsTrue = quizViewModel.currentQuestionAnswer
+            val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
+
             startActivity(intent)
         }
 
