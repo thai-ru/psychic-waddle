@@ -13,7 +13,7 @@ import robinthairu.me.geoquiz.databinding.ActivityCheatBinding
 
 
 private const val EXTRA_ANSWER_IS_TRUE = "robinthairu.me.geoquiz.answer_is_true"
-private  const val EXTRA_ANSWER_SHOWN  = "robinthairu.me.geoquiz.answer_shown"
+const val EXTRA_ANSWER_SHOWN  = "robinthairu.me.geoquiz.answer_shown"
 private var answerIsTrue = false
 
 
